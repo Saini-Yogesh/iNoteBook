@@ -4,8 +4,11 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const fetchUser = require("../middleware/fetchuser");
 
 const JWT_SECRET = "yogeshIsDevlaper";
+
+// ROUTE 1:------------------------------------------------------------------------------------------------------
 // creata a user using :POST ".api/auth/createuser" Dosent require auth
 router.post(
   "/createuser",
@@ -60,6 +63,7 @@ router.post(
   }
 );
 
+// ROUTE 2:------------------------------------------------------------------------------------------------------
 // login a user using :POST ".api/auth/login" Dosent require auth
 router.post(
   "/login",
@@ -76,27 +80,30 @@ router.post(
       return res.status(400).json({ errors: result.array() });
       // return res.send({ errors: result.array() });
     }
-
+    // destructuring
     const { email, password } = req.body;
     try {
+      // fatching user from data base
       const user = await User.findOne({ email });
       if (!user) {
         return res.json({
           error: "Please try to login with correct credentials",
         });
       }
-
+      // Checking Password
       const passworsCompair = await bcrypt.compare(password, user.password);
       if (!passworsCompair) {
         return res.json({
           error: "Please try to login with correct credentials",
         });
       }
+      // giving a id to user
       const data = {
         user: {
           id: user.id,
         },
       };
+      // sending a token to user
       const authToken = jwt.sign(data, JWT_SECRET);
       res.json({ authToken });
     } catch (error) {
@@ -106,4 +113,18 @@ router.post(
     }
   }
 );
+
+// ROUTE 3:------------------------------------------------------------------------------------------------------
+// Get Logedin details using :POST ".api/auth/getuser". Login Requir
+router.post("/getuser", fetchUser, async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (error) {
+    // Log the error message
+    console.log(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
 module.exports = router;
