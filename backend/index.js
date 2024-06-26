@@ -4,6 +4,7 @@ const app = express();
 connectToMongo();
 
 const port = 3000;
+app.use(express.json()); // for use of req.body have to use ehtis middle wear
 
 // Avilable Routes
 app.get("/", (req, res) => {
