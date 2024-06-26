@@ -2,7 +2,10 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
+const JWT_SECRET = "yogeshIsDevlaper";
 // creata a user using :POST ".api/auth/createuser" Dosent require auth
 router.post(
   "/createuser",
@@ -15,32 +18,43 @@ router.post(
     }),
   ],
   async (req, res) => {
-    // if ther are error return bad request and the errors
+    // if there are error return bad request and the errors
     const result = validationResult(req);
     // if filr any validation issue
     if (!result.isEmpty()) {
       return res.send({ errors: result.array() });
     }
     try {
-      // check ehether the user with this same email exist alrady
+      // Check whether the user with this same email already exists
       let user = await User.findOne({ email: req.body.email });
-      // if Exist then return exist else create user
+      // If exists, then return an error response; else create user
       if (user) {
         return res
           .status(400)
-          .json({ error: "Sorry a user with this emial alrady exist" });
+          .json({ error: "Sorry, a user with this email already exists" });
       }
-      // create user
+      // Create user
+      const salt = await bcrypt.genSalt(10);
+      const secPass = await bcrypt.hash(req.body.password, salt);
       user = await User.create({
         name: req.body.name,
         email: req.body.email,
-        password: req.body.password,
+        password: secPass,
       });
-      // res is use,json file
-      res.json(user);
-    } catch {
-      console.log(error.massage);
-      res.status(500).sen("Some eror");
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authToken = jwt.sign(data, JWT_SECRET);
+      res.json({ authToken });
+      // console.log(jwtData);
+      // Send response with created user
+      // res.json(user);
+    } catch (error) {
+      // Log the error message
+      console.log(error.message);
+      res.status(500).send("Some error occurred");
     }
   }
 );
