@@ -1,5 +1,6 @@
 const mongoose = require("mongoose"); // used to import the Mongoose library
-import { type } from "os";
+const { Schema } = mongoose;
+// import { type } from "os";
 
 const notesSchema = new Schema({ //ˈskiːma
   tittle: {
