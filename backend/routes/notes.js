@@ -55,7 +55,7 @@ router.post(
 );
 
 // ROUTE :3
-// Update Notes using put:  "/updateNote" login required
+// Update Notes using PUT:  "/updateNote" login required
 router.put("/updateNote/:id", fetchUser, async (req, res) => {
   try {
     const { tittle, description, tag } = req.body;
@@ -90,8 +90,8 @@ router.put("/updateNote/:id", fetchUser, async (req, res) => {
   }
 });
 
-// ROUTE :
-// delete using put:  "/updateNote" login required
+// ROUTE : 4
+// delete using DELETE:  "/deleteNode" login required
 router.delete("/deleteNode/:id", fetchUser, async (req, res) => {
   try {
     // find the node to be deleted and delete it
