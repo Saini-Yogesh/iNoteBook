@@ -90,4 +90,25 @@ router.put("/updateNote/:id", fetchUser, async (req, res) => {
   }
 });
 
+// ROUTE :
+// delete using put:  "/updateNote" login required
+router.delete("/deleteNode/:id", fetchUser, async (req, res) => {
+  try {
+    // find the node to be deleted and delete it
+    let note = await Notes.findById(req.params.id);
+    if (!note) {
+      return res.status(404).send("Not Found");
+    }
+    // Allow deletion id only if user owns this notes
+    if (note.user.toString() !== req.user.id) {
+      return res.status(401).send("Not Allowed");
+    }
+    note = await Notes.findByIdAndDelete(req.params.id);
+    res.json({ Succes: "note has been deleted", notes: note });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send("Internal Server Error");
+  }
+});
+
 module.exports = router;
