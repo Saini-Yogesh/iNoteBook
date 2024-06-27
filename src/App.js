@@ -7,6 +7,7 @@ function App() {
   return (
     <div className="App">
       <>
+        {/* learn about Context Api  */}
         <Router>
           <Navbar />
           {/* <Home /> */}
