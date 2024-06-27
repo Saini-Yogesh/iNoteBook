@@ -2,7 +2,12 @@ const mongoose = require("mongoose"); // used to import the Mongoose library
 const { Schema } = mongoose;
 // import { type } from "os";
 
-const notesSchema = new Schema({ //ˈskiːma
+const notesSchema = new Schema({
+  //ˈskiːma
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user",
+  },
   tittle: {
     type: String,
     required: true,
@@ -13,7 +18,7 @@ const notesSchema = new Schema({ //ˈskiːma
   },
   tag: {
     type: String,
-    default: Genral,
+    default: "Genral",
   },
   date: {
     type: Date,

@@ -8,6 +8,7 @@ const fetchUser = (req, res, next) => {
     res.status(401).send({ erro: "Please Authenticate Using a valid token" });
   }
   try {
+    // If the token is valid, the decoded data(ID) is attached to the req object as req.user.
     const data = jwt.verify(token, JWT_SECRET);
     req.user = data.user;
     next();
