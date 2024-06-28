@@ -31,7 +31,7 @@ const NoteState = (props) => {
       __v: 0,
     },
     {
-      _id: "667da6185f01b1218e4d27cf",
+      _id: "667da6185f0d1b1218e4d27cf",
       user: "667da5bc5f01b1218e4d27c2",
       tittle: "notes for me",
       description: "general",
@@ -40,7 +40,7 @@ const NoteState = (props) => {
       __v: 0,
     },
     {
-      _id: "667da6125f01b1218e4d27cb",
+      _id: "667da6125f01bs1218e4d27cb",
       user: "667da5bc5f01b1218e4d27c2",
       tittle: "notes for me",
       description: "general",
@@ -49,7 +49,7 @@ const NoteState = (props) => {
       __v: 0,
     },
     {
-      _id: "667da6135f01b1218e4d27cd",
+      _id: "667da6135f01b121k8e4d27cd",
       user: "667da5bc5f01b1218e4d27c2",
       tittle: "notes for me",
       description: "general",
@@ -58,7 +58,7 @@ const NoteState = (props) => {
       __v: 0,
     },
     {
-      _id: "667da6185f01b1218e4d27cf",
+      _id: "667da6185f01b12k18e4d27cf",
       user: "667da5bc5f01b1218e4d27c2",
       tittle: "notes for me",
       description: "general",
