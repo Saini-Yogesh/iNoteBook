@@ -4,15 +4,26 @@ import Navbar from "./components/Navbar";
 import About from "./components/About";
 import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
-import Alert from "./components/Alert";
+// import Alert from "./components/Alert";
+// import { useState } from "react";
 
 function App() {
+  // const [Alert, setAlert] = useState({ type: "succes", msg: "done" });
+  // let showAlert = (massage, type) => {
+  //   setAlert({
+  //     msg: massage,
+  //     type: type,
+  //   });
+  //   setTimeout(() => {
+  //     setAlert(null);
+  //   }, 1500);
+  // };
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
-          <Alert massage="this is Alert bar" />
+          {/* <Alert alert={Alert} /> */}
           <div className="container">
             <Routes>
               <Route exact path="/" element={<Home />} />
