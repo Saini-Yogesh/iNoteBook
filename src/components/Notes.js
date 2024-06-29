@@ -5,7 +5,13 @@ import AddNote from "./AddNote";
 
 const Notes = () => {
   const context = useContext(noteContext);
-  const { notes, getNotes } = context;
+  const { notes, getNotes, editNote } = context;
+  const [note, setNote] = useState({
+    id: "",
+    etittle: "",
+    edescription: "",
+    etag: "general",
+  });
   useEffect(() => {
     getNotes();
     // eslint-disable-next-line
@@ -14,21 +20,18 @@ const Notes = () => {
     ref.current.click();
     setNote(currentNote);
     setNote({
-      // id: currentNote._id,
+      id: currentNote._id,
       etittle: currentNote.tittle,
       edescription: currentNote.description,
       etag: currentNote.tag,
     });
   };
   const ref = useRef(null);
-  const [note, setNote] = useState({
-    etittle: "",
-    edescripation: "",
-    etag: "general",
-  });
+  const refClose = useRef(null);
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(note);
+    editNote(note.id, note.etittle, note.edescription, note.etag);
+    refClose.current.click();
   };
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value });
@@ -82,14 +85,14 @@ const Notes = () => {
                   />
                 </div>
                 <div className="mb-3">
-                  <label htmlFor="edescripation" className="form-label">
+                  <label htmlFor="edescription" className="form-label">
                     Description
                   </label>
                   <input
-                    value={note.edescripation}
+                    value={note.edescription}
                     type="text"
                     id="edescription"
-                    name="edescripation"
+                    name="edescription"
                     className="form-control"
                     onChange={onChange}
                   />
@@ -111,6 +114,7 @@ const Notes = () => {
             </div>
             <div className="modal-footer">
               <button
+                ref={refClose}
                 type="button"
                 className="btn btn-secondary"
                 data-bs-dismiss="modal"

@@ -16,7 +16,6 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
     setNotes(json);
   };
   // Add Note
@@ -33,7 +32,6 @@ const NoteState = (props) => {
     });
     const json = await response.json();
     //TODO : API call
-    console.log("adding a new note");
     const note = {
       _id: "667da6185f01b512k18e4d27cf",
       user: "667da5bc5f01b1218e4d27c2",
@@ -57,9 +55,7 @@ const NoteState = (props) => {
       },
     });
     const json = await response.json();
-    console.log(json);
 
-    console.log(`deleteing the node` + id);
     const newNotes = notes.filter((note) => {
       return note._id !== id;
     });
@@ -69,7 +65,7 @@ const NoteState = (props) => {
   const editNote = async (id, tittle, description, tag) => {
     //API CALL
     const response = await fetch(`${host}/api/notes/updateNote/${id}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
         "auth-token":
@@ -79,16 +75,18 @@ const NoteState = (props) => {
     });
     const json = await response.json();
 
+    const newNotes = JSON.parse(JSON.stringify(notes));
     //login to edit
-    console.log("note have be updated Succesfully");
-    for (let index = 0; index < notes.length; index++) {
-      const element = notes[index];
+    for (let index = 0; index < newNotes.length; index++) {
+      const element = newNotes[index];
       if (element._id === id) {
-        element.tittle = tittle;
-        element.description = description;
-        element.tag = tag;
+        newNotes[index].tittle = tittle;
+        newNotes[index].description = description;
+        newNotes[index].tag = tag;
+        break;
       }
     }
+    setNotes(newNotes);
   };
   return (
     <NoteContext.Provider
