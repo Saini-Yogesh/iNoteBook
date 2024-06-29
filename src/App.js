@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import NoteState from "./context/notes/NoteState";
 // import Alert from "./components/Alert";
 // import { useState } from "react";
+import "./App.css";
 
 function App() {
   // const [Alert, setAlert] = useState({ type: "succes", msg: "done" });
