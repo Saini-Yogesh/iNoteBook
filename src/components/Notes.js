@@ -82,6 +82,8 @@ const Notes = () => {
                     name="etittle"
                     className="form-control"
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -95,6 +97,8 @@ const Notes = () => {
                     name="edescription"
                     className="form-control"
                     onChange={onChange}
+                    minLength={5}
+                    required
                   />
                 </div>
                 <div className="mb-3">
@@ -125,6 +129,9 @@ const Notes = () => {
                 type="button"
                 onClick={handleClick}
                 className="btn btn-primary"
+                disabled={
+                  note.etittle.length < 5 || note.edescription.length < 5
+                }
               >
                 Save changes
               </button>
@@ -134,6 +141,9 @@ const Notes = () => {
       </div>
       <div className="container my-3 row">
         <h2>Your Notes</h2>
+        <div className="container">
+          {notes.length === 0 && "No notes to display here"}
+        </div>
         {notes.map((note) => {
           return (
             <NoteItem key={note._id} updateNote={updateNote} note={note} />
