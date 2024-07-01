@@ -2,6 +2,9 @@ import React from "react";
 
 const Alert = (props) => {
   const capitalize = (word) => {
+    if (word === "danger") {
+      word = "error";
+    }
     let str = word.toLowerCase();
     return str.charAt(0).toUpperCase() + str.slice(1);
   };
