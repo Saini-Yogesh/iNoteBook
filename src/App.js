@@ -7,6 +7,8 @@ import NoteState from "./context/notes/NoteState";
 // import Alert from "./components/Alert";
 // import { useState } from "react";
 import "./App.css";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
 
 function App() {
   // const [Alert, setAlert] = useState({ type: "succes", msg: "done" });
@@ -30,6 +32,8 @@ function App() {
               <Route exact path="/" element={<Home />} />
               <Route exact path="/iNoteBook" element={<Home />} />
               <Route exact path="/about" element={<About />} />
+              <Route exact path="/Login" element={<Login />} />
+              <Route exact path="/Signup" element={<Signup />} />
             </Routes>
           </div>
         </Router>
